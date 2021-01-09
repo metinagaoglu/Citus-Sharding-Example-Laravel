@@ -18,6 +18,9 @@
                     <x-jet-nav-link href="{{ route('warehouses.index') }}" :active="request()->routeIs('warehouses.index')">
                         {{ __('My Warehouses') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('warehouses.create') }}" :active="request()->routeIs('warehouses.create')">
+                        {{ __('Add a new warehouse') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

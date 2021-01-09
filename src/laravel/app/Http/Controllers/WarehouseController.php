@@ -27,7 +27,7 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('warehouses.create');
     }
 
     /**
@@ -38,7 +38,12 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $warehouse = new warehouse;
+        $warehouse->warehouse_name = $request->get('warehouse_name');
+        $warehouse->tenant_id = Auth::user()->tenant_id ?? 3;
+        $warehouse->save();
+
+        return redirect()->route('warehouses.index')->with('status','success');
     }
 
     /**

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\DB;
 
 class CreateWarehousesTable extends Migration
 {
@@ -15,11 +15,20 @@ class CreateWarehousesTable extends Migration
     public function up()
     {
         Schema::create('warehouses', function (Blueprint $table) {
-            $table->id('warehouse_id');
+            $table->increments('warehouse_id');
             $table->string('warehouse_name',50);
-            $table->foreignId('tenant_id');
+            //$table->primary('tenant_id');
+            //$table->foreignId('tenant_id')->constrained('tenants');
+            $table->bigInteger('tenant_id');
             $table->timestamps();
+            $table->unsignedInteger('warehouse_id')->change();
+            $table->dropPrimary('warehouse_id');
+            $table->primary(['warehouse_id','tenant_id']);
+            $table->increments('warehouse_id')->change();
+
         });
+        DB::statement("SELECT create_distributed_table('warehouses','tenant_id');");
+
     }
 
     /**
