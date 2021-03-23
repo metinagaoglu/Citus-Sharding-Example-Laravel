@@ -19,8 +19,9 @@ class CreateWarehousesTable extends Migration
             $table->string('warehouse_name',50);
             //$table->primary('tenant_id');
             //$table->foreignId('tenant_id')->constrained('tenants');
-            $table->bigInteger('tenant_id');
+            $table->foreignIdFor('tenants','tenant_id');
             $table->timestamps();
+
             $table->unsignedInteger('warehouse_id')->change();
             $table->dropPrimary('warehouse_id');
             $table->primary(['warehouse_id','tenant_id']);

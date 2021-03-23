@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WarehouseIORequest;
+use App\Models\warehouse;
 use App\Models\warehouse_io;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WarehouseIoController extends Controller
 {
@@ -22,9 +25,10 @@ class WarehouseIoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(warehouse $warehouse)
     {
-        //
+        $myWarehouses = $warehouse::where('tenant_id',Auth::user()->tenant_id)->get();
+        return view('warehouse_io.create',compact('myWarehouses','warehouse'));
     }
 
     /**
@@ -33,9 +37,14 @@ class WarehouseIoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WarehouseIORequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $request->request->add(['tenant_id' => Auth::user()->tenant_id]);
+var_dump($request->all());
+        $insert = warehouse_io::create($request->except('_token'));
+        dd($insert);
     }
 
     /**

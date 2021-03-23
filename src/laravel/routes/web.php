@@ -24,4 +24,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum','verified'])->group(function (){
     Route::resource('tenants', \App\Http\Controllers\TenantsController::class);
     Route::resource('warehouses', \App\Http\Controllers\WarehouseController::class);
+    Route::resource('warehouses.io', \App\Http\Controllers\WarehouseIoController::class);
 });

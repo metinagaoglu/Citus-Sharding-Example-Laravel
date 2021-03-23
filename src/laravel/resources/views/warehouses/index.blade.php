@@ -20,6 +20,7 @@
                             <td>{{ $warehouse->warehouse_name  }}</td>
                             <td>
                                 <a href="#">{{ __('Detail')  }}</a>
+                                <a href="{{ route('warehouses.io.create',['warehouse' => $warehouse->warehouse_id]) }}">{{ __('Transaction')  }}</a>
                             </td>
                         </tr>
                     @endforeach

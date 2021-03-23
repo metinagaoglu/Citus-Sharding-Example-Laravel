@@ -15,13 +15,15 @@ class CreateWarehouseIosTable extends Migration
     public function up()
     {
         Schema::create('warehouse_ios', function (Blueprint $table) {
-            $table->integer('id');
-            $table->integer('from');
-            $table->float('input');
-            $table->float('output');
-            $table->foreignId('warehouse_id');
-            $table->foreignId('tenant_id');
+            $table->increments('id');
+            $table->integer('type'); //TODO: enum
+            $table->float('amount');
+            $table->foreignIdFor('warehouse','warehouse_id');
+            $table->foreignIdFor('tenants','tenant_id');
             $table->timestamps();
+
+            $table->unsignedInteger('id')->change();
+            $table->dropPrimary('id');
             $table->primary(['id','tenant_id']);
             $table->increments('id')->change();
         });
